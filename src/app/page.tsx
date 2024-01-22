@@ -1,4 +1,5 @@
 import { Typography, Container } from '@mui/material'
+import MetersTable from '@/Components/MetersTable'
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       >
         Amberflo Exercise
       </Typography>
+      <MetersTable />
     </Container>
   )
 }
