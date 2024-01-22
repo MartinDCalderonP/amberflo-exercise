@@ -10,3 +10,5 @@ export interface Meter {
   updated_time: string
   created_time: string
 }
+
+export type SortDirection = 'asc' | 'desc'
