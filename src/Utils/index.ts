@@ -24,3 +24,6 @@ export const slugToTitle = (slug: string) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
 }
+
+export const isBooleanProperty = (property: string) =>
+  property === 'active' || property === 'used_for_billing'
