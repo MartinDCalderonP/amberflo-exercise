@@ -78,7 +78,15 @@ const MetersTable = () => {
             <TableHead>
               <TableRow>
                 {showedMeterProperties.map((header) => (
-                  <TableCell key={header} onClick={() => handleSort(header)}>
+                  <TableCell
+                    key={header}
+                    onClick={() => handleSort(header)}
+                    sx={{
+                      cursor: 'pointer',
+                      overflowX: 'auto',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
                     {slugToTitle(header)}
                     {renderSortIcon(header)}
                   </TableCell>
