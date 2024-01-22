@@ -8,7 +8,7 @@ import Theme from '@/Providers/Theme'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Amberflo exercise',
+  title: 'Amberflo Exercise',
   description: 'Amberflo exercise'
 }
 
