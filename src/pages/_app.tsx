@@ -1,4 +1,5 @@
 import { AppProps } from 'next/app'
+import '@/app/globals.css'
 import TanStackQuery from '@/Providers/TanStackQuery'
 import Theme from '@/Providers/Theme'
 
