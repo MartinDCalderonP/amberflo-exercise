@@ -75,6 +75,17 @@ const MetersTable = () => {
     }
   )
 
+  const tableHeaderStyle = {
+    cursor: 'pointer',
+    overflowX: 'auto',
+    whiteSpace: 'nowrap'
+  }
+
+  const tableRowStyle = {
+    cursor: 'pointer',
+    '&:nth-of-type(odd)': { background: '#303030' }
+  }
+
   return (
     <>
       {isLoading && <Loader />}
@@ -88,11 +99,7 @@ const MetersTable = () => {
                   <TableCell
                     key={header}
                     onClick={() => handleSort(header)}
-                    sx={{
-                      cursor: 'pointer',
-                      overflowX: 'auto',
-                      whiteSpace: 'nowrap'
-                    }}
+                    sx={tableHeaderStyle}
                   >
                     {slugToTitle(header)}
                     {renderSortIcon(header)}
@@ -105,10 +112,7 @@ const MetersTable = () => {
                 <TableRow
                   key={meter.id}
                   onClick={() => redirectToMeter(meter.id)}
-                  sx={{
-                    cursor: 'pointer',
-                    '&:nth-of-type(odd)': { background: '#303030' }
-                  }}
+                  sx={tableRowStyle}
                 >
                   {showedMeterProperties.map((property) => (
                     <TableCell key={property}>
