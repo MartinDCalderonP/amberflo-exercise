@@ -18,6 +18,17 @@ import Loader from './Loader'
 import { Meter, SortDirection } from '@/Utils/types'
 import { isBooleanProperty, showedMeterProperties, slugToTitle } from '@/Utils'
 
+const tableHeaderStyle = {
+  cursor: 'pointer',
+  overflowX: 'auto',
+  whiteSpace: 'nowrap'
+}
+
+const tableRowStyle = {
+  cursor: 'pointer',
+  '&:nth-of-type(odd)': { background: '#303030' }
+}
+
 const MetersTable = () => {
   const router = useRouter()
 
@@ -74,17 +85,6 @@ const MetersTable = () => {
       return 0
     }
   )
-
-  const tableHeaderStyle = {
-    cursor: 'pointer',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap'
-  }
-
-  const tableRowStyle = {
-    cursor: 'pointer',
-    '&:nth-of-type(odd)': { background: '#303030' }
-  }
 
   return (
     <>
