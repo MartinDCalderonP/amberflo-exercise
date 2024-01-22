@@ -1,10 +1,13 @@
 import { AppProps } from 'next/app'
 import TanStackQuery from '@/Providers/TanStackQuery'
+import Theme from '@/Providers/Theme'
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
   return (
     <TanStackQuery>
-      <Component {...pageProps} />
+      <Theme>
+        <Component {...pageProps} />
+      </Theme>
     </TanStackQuery>
   )
 }
