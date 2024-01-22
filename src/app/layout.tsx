@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import TanStackQuery from '@/Providers/TanStackQuery'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <link rel='shortcut icon' href='favicon.ico' type='image/x-icon' />
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <TanStackQuery>{children}</TanStackQuery>
+      </body>
     </html>
   )
 }
