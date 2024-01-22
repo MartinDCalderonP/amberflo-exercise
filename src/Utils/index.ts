@@ -14,3 +14,13 @@ export const defaultMeter: Meter = {
 export const showedMeterProperties = Object.keys(defaultMeter).filter(
   (key) => key !== 'id' && key !== 'updated_time' && key !== 'created_time'
 )
+
+export const slugToTitle = (slug: string) => {
+  const wordConnector = slug.includes('-') ? '-' : '_'
+
+  const words = slug.split(wordConnector)
+
+  return words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
