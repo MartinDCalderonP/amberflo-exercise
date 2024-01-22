@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { getMeters } from '@/Utils/api'
 import {
@@ -18,6 +19,12 @@ import { Meter, SortDirection } from '@/Utils/types'
 import { isBooleanProperty, showedMeterProperties, slugToTitle } from '@/Utils'
 
 const MetersTable = () => {
+  const router = useRouter()
+
+  const redirectToMeter = (id: string) => {
+    router.push(`/meters/${id}`)
+  }
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['meters'],
     queryFn: getMeters
@@ -95,7 +102,14 @@ const MetersTable = () => {
             </TableHead>
             <TableBody>
               {sortedMeters.map((meter: Meter) => (
-                <TableRow key={meter.id} onClick={() => console.log(meter)}>
+                <TableRow
+                  key={meter.id}
+                  onClick={() => redirectToMeter(meter.id)}
+                  sx={{
+                    cursor: 'pointer',
+                    '&:nth-of-type(odd)': { background: '#303030' }
+                  }}
+                >
                   {showedMeterProperties.map((property) => (
                     <TableCell key={property}>
                       {tableCellContent(meter, property)}
