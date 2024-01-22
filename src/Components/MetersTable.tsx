@@ -17,6 +17,7 @@ import { Check, Clear } from '@mui/icons-material'
 import Loader from './Loader'
 import { Meter, SortDirection } from '@/Utils/types'
 import { isBooleanProperty, showedMeterProperties, slugToTitle } from '@/Utils'
+import AddMeterButton from './AddMeterButton'
 
 const tableHeaderStyle = {
   cursor: 'pointer',
@@ -91,39 +92,42 @@ const MetersTable = () => {
       {isLoading && <Loader />}
       {error && <div>Something went wrong... Try again later</div>}
       {sortedMeters && (
-        <TableContainer component={Paper}>
-          <Table aria-label='meters table'>
-            <TableHead>
-              <TableRow>
-                {showedMeterProperties.map((header) => (
-                  <TableCell
-                    key={header}
-                    onClick={() => handleSort(header)}
-                    sx={tableHeaderStyle}
-                  >
-                    {slugToTitle(header)}
-                    {renderSortIcon(header)}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sortedMeters.map((meter: Meter) => (
-                <TableRow
-                  key={meter.id}
-                  onClick={() => redirectToMeter(meter.id)}
-                  sx={tableRowStyle}
-                >
-                  {showedMeterProperties.map((property) => (
-                    <TableCell key={property}>
-                      {tableCellContent(meter, property)}
+        <>
+          <TableContainer component={Paper}>
+            <Table aria-label='meters table'>
+              <TableHead>
+                <TableRow>
+                  {showedMeterProperties.map((header) => (
+                    <TableCell
+                      key={header}
+                      onClick={() => handleSort(header)}
+                      sx={tableHeaderStyle}
+                    >
+                      {slugToTitle(header)}
+                      {renderSortIcon(header)}
                     </TableCell>
                   ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {sortedMeters.map((meter: Meter) => (
+                  <TableRow
+                    key={meter.id}
+                    onClick={() => redirectToMeter(meter.id)}
+                    sx={tableRowStyle}
+                  >
+                    {showedMeterProperties.map((property) => (
+                      <TableCell key={property}>
+                        {tableCellContent(meter, property)}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <AddMeterButton />
+        </>
       )}
     </>
   )
