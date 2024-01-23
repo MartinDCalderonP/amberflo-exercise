@@ -69,12 +69,6 @@ const MetersTable = () => {
     return propertyValue
   }
 
-  const renderSortIcon = (column: string) => {
-    if (column !== sortColumn) return
-
-    return <TableSortLabel active direction={sortDirection} />
-  }
-
   const sortedMeters = data?.toSorted(
     (a: Record<string, string>, b: Record<string, string>) => {
       if (a[sortColumn] < b[sortColumn]) {
@@ -104,7 +98,9 @@ const MetersTable = () => {
                       sx={tableHeaderStyle}
                     >
                       {slugToTitle(header)}
-                      {renderSortIcon(header)}
+                      {header === sortColumn && (
+                        <TableSortLabel active direction={sortDirection} />
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
