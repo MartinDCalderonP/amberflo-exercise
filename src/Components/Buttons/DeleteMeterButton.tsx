@@ -20,6 +20,12 @@ const DeleteMeterButton = ({ meterId }: DeleteMeterButtonProps) => {
 
   const queryClient = useQueryClient()
 
+  const handleError = (error: string) => {
+    setIsLoading(false)
+    setErrorMessage(error || 'Something went wrong, please try again later')
+    setShowErrorModal(true)
+  }
+
   const { mutate } = useMutation({
     mutationFn: deleteMeter,
     onMutate: () => setIsLoading(true),
@@ -28,9 +34,7 @@ const DeleteMeterButton = ({ meterId }: DeleteMeterButtonProps) => {
         queryKey: ['meters']
       })
       if (res.error) {
-        setIsLoading(false)
-        setErrorMessage(res.error)
-        setShowErrorModal(true)
+        handleError(res.error)
       }
       if (res.data) {
         setIsLoading(false)
@@ -38,9 +42,7 @@ const DeleteMeterButton = ({ meterId }: DeleteMeterButtonProps) => {
       }
     },
     onError: (error: Error) => {
-      setIsLoading(false)
-      setErrorMessage(error.message)
-      setShowErrorModal(true)
+      handleError(error.message)
     }
   })
 
