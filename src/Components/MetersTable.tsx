@@ -81,6 +81,10 @@ const MetersTable = () => {
     }
   )
 
+  const handleRowClick = (id: string) => {
+    redirectToMeter(id)
+  }
+
   return (
     <>
       {isLoading && <Loader />}
@@ -110,7 +114,7 @@ const MetersTable = () => {
                   <ButtonBase
                     key={meter.id}
                     component={TableRow}
-                    onClick={() => redirectToMeter(meter.id)}
+                    onClick={() => handleRowClick(meter.id)}
                     sx={tableRowStyle}
                   >
                     {showedMeterProperties.map((property) => (
