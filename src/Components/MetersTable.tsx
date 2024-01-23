@@ -70,14 +70,9 @@ const MetersTable = () => {
   }
 
   const renderSortIcon = (column: string) => {
-    if (column === sortColumn) {
-      return sortDirection === 'asc' ? (
-        <TableSortLabel active direction='asc' />
-      ) : (
-        <TableSortLabel active direction='desc' />
-      )
-    }
-    return null
+    if (column !== sortColumn) return
+
+    return <TableSortLabel active direction={sortDirection} />
   }
 
   const sortedMeters = data?.toSorted(
