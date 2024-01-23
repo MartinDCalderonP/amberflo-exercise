@@ -68,6 +68,10 @@ const menuItems = [
 
 const MeterForm = ({ meter, onHide }: MeterFormProps) => {
   const [formValues, setFormValues] = useState<Meter>(meter ?? defaultMeter)
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({
+    api_name: '',
+    display_name: ''
+  })
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showErrorModal, setShowErrorModal] = useState(false)
@@ -101,28 +105,25 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
     }
   })
 
-  const isValidData = (data: any) => {
-    const errors: string[] = []
-
+  const isValidData = (data: Meter) => {
     showedMeterProperties.forEach((property) => {
-      if (
-        property === 'active' ||
-        property === 'used_for_billing' ||
-        property === 'type'
-      )
-        return
+      if (isBooleanProperty(property) || property === 'type') return
 
-      if (!data[property]) {
-        errors.push(slugToTitle(property))
+      if (!data[property as keyof Meter]) {
+        setFormErrors({
+          ...formErrors,
+          [property]: `${slugToTitle(property)} is required`
+        })
+      } else {
+        setFormErrors({
+          ...formErrors,
+          [property]: ''
+        })
       }
     })
 
-    if (errors.length > 0) {
-      setErrorMessage('Please fill out this field')
-      return false
-    }
+    if (formErrors.api_name || formErrors.display_name) return false
 
-    setErrorMessage('')
     return true
   }
 
@@ -204,9 +205,8 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
               name={property}
               value={formValues[property as keyof Meter] as string}
               onChange={onChange as ChangeEventHandler<HTMLInputElement>}
-              required
-              error={errorMessage !== ''}
-              helperText={errorMessage}
+              error={formErrors[property as keyof Meter] !== ''}
+              helperText={formErrors[property as keyof Meter]}
             />
           )
       })}
