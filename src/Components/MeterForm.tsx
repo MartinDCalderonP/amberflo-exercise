@@ -56,19 +56,28 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
 
   const mutationFunction = meter ? putMeter : postMeter
 
+  const handleError = (error: string) => {
+    setIsLoading(false)
+    setErrorMessage(error || 'Something went wrong, please try again later')
+    setShowErrorModal(true)
+  }
+
   const { mutate } = useMutation({
     mutationFn: mutationFunction,
     onMutate: () => setIsLoading(true),
-    onSuccess: () => {
+    onSuccess: (res) => {
       queryClient.invalidateQueries({
         queryKey: ['meters']
       })
-      onHide && onHide()
-    },
-    onError: () => {
       setIsLoading(false)
-      setErrorMessage('Something went wrong, please try again')
-      setShowErrorModal(true)
+      if (res.error) {
+        handleError(res.error)
+      } else {
+        onHide && onHide()
+      }
+    },
+    onError: (error: Error) => {
+      handleError(error.message)
     }
   })
 
