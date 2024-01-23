@@ -17,7 +17,7 @@ import { Check, Clear } from '@mui/icons-material'
 import Loader from './Loader'
 import { Meter, SortDirection } from '@/Utils/types'
 import { isBooleanProperty, showedMeterProperties, slugToTitle } from '@/Utils'
-import AddMeterButton from './AddMeterButton'
+import AddMeterButton from './Buttons/AddMeterButton'
 
 const tableHeaderStyle = {
   cursor: 'pointer',
