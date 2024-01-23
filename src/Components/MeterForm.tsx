@@ -9,7 +9,12 @@ import {
   TextField
 } from '@mui/material'
 import { Meter } from '@/Utils/types'
-import { defaultMeter, showedMeterProperties, slugToTitle } from '@/Utils'
+import {
+  defaultMeter,
+  isBooleanProperty,
+  showedMeterProperties,
+  slugToTitle
+} from '@/Utils'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { postMeter, putMeter } from '@/Utils/api'
 import DeleteMeterButton from './Buttons/DeleteMeterButton'
@@ -152,13 +157,13 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
   return (
     <FormControl sx={formControlStyle} component='form' onSubmit={handleSubmit}>
       {showedMeterProperties.map((property) => {
-        if (property === 'active' || property === 'used_for_billing')
+        if (isBooleanProperty(property))
           return (
             <FormControlLabel
               key={property}
               control={
                 <Checkbox
-                  checked={formValues[property]}
+                  checked={formValues[property as keyof Meter] as boolean}
                   onChange={onChange}
                   name={property}
                 />
