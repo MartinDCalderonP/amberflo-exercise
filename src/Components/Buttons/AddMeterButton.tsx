@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AddMeterModal from './Modals/AddMeterModal'
+import AddMeterModal from '../Modals/AddMeterModal'
 import { Button } from '@mui/material'
 
 const buttonStyle = {
