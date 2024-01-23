@@ -5,7 +5,7 @@ import Loader from '@/Components/Loader'
 import { Meter } from '@/Utils/types'
 import MeterForm from '@/Components/MeterForm'
 import { ArrowBack } from '@mui/icons-material'
-import { Container, Toolbar } from '@mui/material'
+import { Container, Toolbar, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 
 const containerStyle = {
@@ -62,6 +62,16 @@ const MeterDetail = () => {
       {isLoading && <Loader />}
       {error && <p>Something went wrong, please try again later</p>}
       {meter && <MeterForm meter={meter} />}
+      {!meter && !isLoading && !error && (
+        <Typography
+          variant='h4'
+          align='center'
+          color='text.secondary'
+          gutterBottom
+        >
+          Meter not found
+        </Typography>
+      )}
     </Container>
   )
 }
