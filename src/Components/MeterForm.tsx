@@ -14,6 +14,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { postMeter, putMeter, deleteMeter } from '@/Utils/api'
 import DeleteMeterButton from './Buttons/DeleteMeterButton'
 import { LoadingButton } from '@mui/lab'
+import ErrorModal from './Modals/ErrorModal'
 
 interface MeterFormProps {
   meter?: Meter
@@ -49,6 +50,7 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
   const [formValues, setFormValues] = useState<Meter>(meter ?? defaultMeter)
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showErrorModal, setShowErrorModal] = useState(true)
 
   const queryClient = useQueryClient()
 
@@ -62,6 +64,11 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
         queryKey: ['meters']
       })
       onHide && onHide()
+    },
+    onError: () => {
+      setIsLoading(false)
+      setErrorMessage('Something went wrong, please try again')
+      setShowErrorModal(true)
     }
   })
 
@@ -183,6 +190,12 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
       </LoadingButton>
 
       {meter && <DeleteMeterButton meterId={meter.id} />}
+
+      <ErrorModal
+        open={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        errorMessage={errorMessage}
+      />
     </FormControl>
   )
 }
