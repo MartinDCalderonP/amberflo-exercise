@@ -30,8 +30,10 @@ const formControlStyle = {
 
   '& > *': {
     width: '100%',
+    maxWidth: '100%',
     justifyContent: 'space-between',
-    gap: '1rem'
+    gap: '1rem',
+    marginLeft: '0'
   }
 }
 
