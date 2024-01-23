@@ -1,6 +1,5 @@
 import { ChangeEvent, ChangeEventHandler, FormEvent, useState } from 'react'
 import {
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -14,6 +13,7 @@ import { defaultMeter, showedMeterProperties, slugToTitle } from '@/Utils'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { postMeter, putMeter, deleteMeter } from '@/Utils/api'
 import DeleteMeterButton from './Buttons/DeleteMeterButton'
+import { LoadingButton } from '@mui/lab'
 
 interface MeterFormProps {
   meter?: Meter
@@ -32,14 +32,23 @@ const formControlStyle = {
     width: '100%',
     maxWidth: '100%',
     justifyContent: 'space-between',
-    gap: '1rem',
+    gap: '1rem'
+  },
+
+  '& > label': {
     marginLeft: '0'
+  },
+
+  '& > button': {
+    alignSelf: 'center',
+    width: '100px'
   }
 }
 
 const MeterForm = ({ meter, onHide }: MeterFormProps) => {
   const [formValues, setFormValues] = useState<Meter>(meter ?? defaultMeter)
   const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const queryClient = useQueryClient()
 
@@ -47,6 +56,7 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
 
   const { mutate } = useMutation({
     mutationFn: mutationFunction,
+    onMutate: () => setIsLoading(true),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['meters']
@@ -163,9 +173,14 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
           )
       })}
 
-      <Button type='submit' variant='contained' color='success'>
+      <LoadingButton
+        type='submit'
+        variant='contained'
+        color='success'
+        loading={isLoading}
+      >
         Submit
-      </Button>
+      </LoadingButton>
 
       {meter && <DeleteMeterButton meterId={meter.id} />}
     </FormControl>

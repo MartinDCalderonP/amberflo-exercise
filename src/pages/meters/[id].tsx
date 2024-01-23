@@ -5,7 +5,8 @@ import Loader from '@/Components/Loader'
 import { Meter } from '@/Utils/types'
 import MeterForm from '@/Components/MeterForm'
 import { ArrowBack } from '@mui/icons-material'
-import { Button, Container, Toolbar } from '@mui/material'
+import { Container, Toolbar } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
 
 const containerStyle = {
   display: 'flex',
@@ -26,7 +27,7 @@ const containerStyle = {
     },
 
     '& > button': {
-      alignSelf: 'flex-end',
+      alignSelf: 'center',
       width: '100px'
     }
   }
@@ -49,9 +50,14 @@ const MeterDetail = () => {
   return (
     <Container sx={containerStyle}>
       <Toolbar>
-        <Button variant='outlined' onClick={goBack} color='primary'>
+        <LoadingButton
+          variant='outlined'
+          onClick={goBack}
+          color='primary'
+          loading={isLoading}
+        >
           <ArrowBack />
-        </Button>
+        </LoadingButton>
       </Toolbar>
       {isLoading && <Loader />}
       {error && <p>Something went wrong, please try again later</p>}
