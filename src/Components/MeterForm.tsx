@@ -11,7 +11,7 @@ import {
 import { Meter } from '@/Utils/types'
 import { defaultMeter, showedMeterProperties, slugToTitle } from '@/Utils'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { postMeter, putMeter, deleteMeter } from '@/Utils/api'
+import { postMeter, putMeter } from '@/Utils/api'
 import DeleteMeterButton from './Buttons/DeleteMeterButton'
 import { LoadingButton } from '@mui/lab'
 import ErrorModal from './Modals/ErrorModal'
