@@ -11,7 +11,7 @@ const AddMeterModal = ({ show, onHide }: AddMeterModalProps) => {
   return (
     <BaseModal show={show} onHide={onHide}>
       <Typography variant='h4'>Add Meter</Typography>
-      <MeterForm />
+      <MeterForm onHide={onHide} />
     </BaseModal>
   )
 }
