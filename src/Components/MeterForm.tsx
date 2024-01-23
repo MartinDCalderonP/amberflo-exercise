@@ -143,7 +143,7 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
               key={property}
               control={
                 <Checkbox
-                  checked={formValues[property] as boolean}
+                  checked={formValues[property]}
                   onChange={onChange}
                   name={property}
                 />
