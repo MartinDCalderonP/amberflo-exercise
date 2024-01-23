@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { getMeters } from '@/Utils/api'
 import {
+  ButtonBase,
   Table,
   TableBody,
   TableCell,
@@ -26,8 +27,12 @@ const tableHeaderStyle = {
 }
 
 const tableRowStyle = {
+  display: 'table-row',
   cursor: 'pointer',
-  '&:nth-of-type(odd)': { background: '#303030' }
+  transition: 'all 0.2s ease-in-out',
+  '&:nth-of-type(odd)': { background: '#303030' },
+  '&:hover': { background: '#404040', scale: '1.01' },
+  '&:active': { background: '#505050', scale: '0.9' }
 }
 
 const MetersTable = () => {
@@ -111,8 +116,9 @@ const MetersTable = () => {
               </TableHead>
               <TableBody>
                 {sortedMeters.map((meter: Meter) => (
-                  <TableRow
+                  <ButtonBase
                     key={meter.id}
+                    component={TableRow}
                     onClick={() => redirectToMeter(meter.id)}
                     sx={tableRowStyle}
                   >
@@ -121,7 +127,7 @@ const MetersTable = () => {
                         {tableCellContent(meter, property)}
                       </TableCell>
                     ))}
-                  </TableRow>
+                  </ButtonBase>
                 ))}
               </TableBody>
             </Table>
