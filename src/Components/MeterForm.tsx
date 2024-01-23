@@ -17,6 +17,7 @@ import DeleteMeterButton from './Buttons/DeleteMeterButton'
 
 interface MeterFormProps {
   meter?: Meter
+  onHide?: () => void
 }
 
 const formControlStyle = {
@@ -34,9 +35,9 @@ const formControlStyle = {
   }
 }
 
-const MeterForm = ({ meter }: MeterFormProps) => {
+const MeterForm = ({ meter, onHide }: MeterFormProps) => {
   const [formValues, setFormValues] = useState<Meter>(meter ?? defaultMeter)
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const queryClient = useQueryClient()
 
@@ -48,6 +49,7 @@ const MeterForm = ({ meter }: MeterFormProps) => {
       queryClient.invalidateQueries({
         queryKey: ['meters']
       })
+      onHide && onHide()
     }
   })
 
@@ -68,7 +70,7 @@ const MeterForm = ({ meter }: MeterFormProps) => {
     })
 
     if (errors.length > 0) {
-      setErrorMessage(`Please fill in ${errors.join(', ')}`)
+      setErrorMessage('Please fill out this field')
       return false
     }
 
@@ -152,6 +154,9 @@ const MeterForm = ({ meter }: MeterFormProps) => {
               name={property}
               value={formValues[property as keyof Meter] as string}
               onChange={onChange as ChangeEventHandler<HTMLInputElement>}
+              required
+              error={errorMessage !== ''}
+              helperText={errorMessage}
             />
           )
       })}
