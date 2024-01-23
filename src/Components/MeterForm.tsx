@@ -73,7 +73,7 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
       if (res.error) {
         handleError(res.error)
       } else {
-        onHide && onHide()
+        onHide?.()
       }
     },
     onError: (error: Error) => {
