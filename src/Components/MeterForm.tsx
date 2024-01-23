@@ -50,7 +50,7 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
   const [formValues, setFormValues] = useState<Meter>(meter ?? defaultMeter)
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [showErrorModal, setShowErrorModal] = useState(true)
+  const [showErrorModal, setShowErrorModal] = useState(false)
 
   const queryClient = useQueryClient()
 
