@@ -46,6 +46,21 @@ const formControlStyle = {
   }
 }
 
+const menuItems = [
+  {
+    value: 'sum',
+    label: 'Sum'
+  },
+  {
+    value: 'max',
+    label: 'Max'
+  },
+  {
+    value: 'unique_count',
+    label: 'Unique Count'
+  }
+]
+
 const MeterForm = ({ meter, onHide }: MeterFormProps) => {
   const [formValues, setFormValues] = useState<Meter>(meter ?? defaultMeter)
   const [errorMessage, setErrorMessage] = useState('')
@@ -164,9 +179,11 @@ const MeterForm = ({ meter, onHide }: MeterFormProps) => {
                   onChange={onChange}
                   value={formValues[property] as string}
                 >
-                  <MenuItem value='sum'>Sum</MenuItem>
-                  <MenuItem value='max'>Max</MenuItem>
-                  <MenuItem value='unique_count'>Unique Count</MenuItem>
+                  {menuItems.map((item) => (
+                    <MenuItem key={item.value} value={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
                 </Select>
               }
               label={slugToTitle(property)}
